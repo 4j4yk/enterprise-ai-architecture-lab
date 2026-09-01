@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package enterprise_ai.retrieval.v1;
+
+service RetrievalService {
+  rpc Search(SearchRequest) returns (SearchResponse);
+}
+
+message SearchRequest {
+  string tenant_id = 1;
+  string query = 2;
+  uint32 limit = 3;
+}
+
+message SearchResult {
+  string document_id = 1;
+  string source_uri = 2;
+  string text = 3;
+  double score = 4;
+}
+
+message SearchResponse {
+  repeated SearchResult results = 1;
+  string index_version = 2;
+}

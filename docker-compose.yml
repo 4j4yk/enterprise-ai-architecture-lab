@@ -1,0 +1,29 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-ai_lab}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-local_only_change_me}
+      POSTGRES_DB: ${POSTGRES_DB:-ai_lab}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  qdrant:
+    image: qdrant/qdrant:v1.19.0
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant_data:/qdrant/storage
+
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:v3.3.2
+    command: mlflow server --host 0.0.0.0 --port 5000
+    ports:
+      - "${MLFLOW_PORT:-5050}:5000"
+
+volumes:
+  postgres_data:
+  qdrant_data:

@@ -2,7 +2,7 @@
 
 ## Milestone 0 - Foundation
 
-Status: Complete locally on 2026-09-01. CI workflow is configured but awaits its first GitHub run.
+Status: Complete. Local verification and GitHub CI pass.
 
 - Runnable FastAPI health service
 - Docker Compose for PostgreSQL, Qdrant, and MLflow
@@ -12,8 +12,8 @@ Status: Complete locally on 2026-09-01. CI workflow is configured but awaits its
 
 ## Milestone 1 - Ingestion and retrieval
 
-Status: In progress. Synthetic catalog normalization, Qdrant vector search, tenant filtering,
-citations, and a three-query baseline evaluation are complete.
+Status: In progress. Synthetic catalog and HTML/Markdown normalization, word-based chunking, Qdrant
+vector search, tenant filtering, citations, and a five-query baseline evaluation are complete.
 
 - Public AEM content adapter
 - Synthetic Mage-OS catalog adapter

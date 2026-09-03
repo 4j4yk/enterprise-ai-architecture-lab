@@ -15,7 +15,8 @@ Only record completed, reproducible evidence here.
 |---|---|---|---|---|
 | Local API foundation | Verified locally | `pytest`, `ruff`, `mypy`, `docker compose config`, dependency check | 3 tests passed; PostgreSQL, Qdrant, and MLflow reachable on a developer Mac | Built a tested local FastAPI foundation with dependency readiness checks and containerized supporting services |
 | Synthetic catalog ingestion | Verified locally | `tests/test_catalog.py` | 3 synthetic products normalized | Built a tested adapter that normalizes synthetic commerce records into tenant-aware documents |
-| Qdrant vector retrieval | Verified locally | `tests/test_retrieval.py`, `python -m app.evaluation` | Recall@1 = 1.00 on 3 synthetic queries; tenant isolation test passed | Implemented tenant-filtered Qdrant vector retrieval with citations and a reproducible evaluation baseline |
+| HTML/Markdown ingestion and chunking | Verified locally | `tests/test_ingestion.py` | 6 adapter, metadata, overlap, and validation cases passed | Built tested HTML and Markdown normalization with configurable overlapping chunks and preserved citation metadata |
+| Qdrant vector retrieval | Verified locally | `tests/test_retrieval.py`, `python -m app.evaluation` | Recall@1 = 1.00 on 5 synthetic queries; tenant isolation test passed | Implemented tenant-filtered Qdrant vector retrieval with citations and a reproducible evaluation baseline |
 | LangGraph durable workflow | Not started | - | - | - |
 | Human approval | Not started | - | - | - |
 | gRPC service | Not started | - | - | - |
@@ -45,6 +46,16 @@ Only record completed, reproducible evidence here.
 - End-to-end API: seeded 3 documents and returned the expected laptop as rank 1.
 - Scope limit: the deterministic hash embedding is a baseline and does not demonstrate semantic
   model quality or production scale.
+
+### 2026-09-03 - Content ingestion and chunking
+
+- Environment: local Python 3.13.5 test environment with in-memory Qdrant.
+- Added HTML and Markdown adapters plus configurable word-count chunks with overlap.
+- Metadata checks cover tenant, source URL, parent ID, and chunk index preservation.
+- Dataset: 3 synthetic products, 2 synthetic help documents, and 5 evaluation queries.
+- Result: 13 tests passed; Recall@1 = 1.00 on the 5-query synthetic set.
+- Scope limit: HTML is supplied to the adapter rather than fetched from arbitrary URLs; PDF ingestion,
+  semantic embeddings, and chunk-size comparisons remain open.
 
 ## Resume update gate
 

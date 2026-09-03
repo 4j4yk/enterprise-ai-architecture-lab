@@ -12,6 +12,8 @@ class Document(BaseModel):
     content_type: str = "text"
     access_label: str = "public"
     version: str = "1"
+    parent_id: str | None = None
+    chunk_index: int | None = None
 
 
 class SearchRequest(BaseModel):

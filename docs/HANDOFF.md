@@ -45,10 +45,10 @@ Create an enterprise content-and-commerce AI assistant that:
 
 ## Immediate next task
 
-Continue Milestone 1 with public content and chunking:
+Continue Milestone 1 with retrieval comparisons:
 
-- Add a public-page or Markdown adapter.
-- Add chunk size and overlap experiments.
+- Add a judged dataset large enough for useful retrieval comparisons.
+- Compare at least three chunk size and overlap settings.
 - Compare the local hash baseline with a real embedding model.
 - Expand the evaluation dataset before claiming retrieval quality.
 
@@ -94,3 +94,17 @@ public-page ingestion, chunking experiments, hybrid search, reranking, and later
 Next exact task: Add a public Markdown/page adapter and chunking experiment with a larger judged dataset.
 Resume evidence unlocked: Tenant-filtered Qdrant vector retrieval with citations and a reproducible
 synthetic baseline; no production-scale or LLM-quality claim.
+
+Date: 2026-09-03
+Completed: Added HTML and Markdown adapters, reusable word-based chunking with overlap, chunk lineage
+metadata, two synthetic help documents, five-query retrieval evaluation, and ADR-003.
+Verified by: 13 passing tests, Ruff, mypy, and Recall@1 of 1.00 on 5 synthetic queries.
+Files changed: Document model, ingestion and sample-content modules, demo seeding, evaluation, tests,
+README, roadmap, evidence ledger, handoff, and ADR-003.
+Decisions/ADRs: ADR-003 accepted for the initial provider-independent word chunking baseline.
+Known issues: HTML fetching and PDF parsing are not implemented; evaluation data is still too small
+for a general quality claim; word chunks can split sentences and do not equal model tokens.
+Next exact task: Build a larger judged dataset and compare chunk configurations using Recall@k,
+MRR, nDCG, and latency.
+Resume evidence unlocked: Tested multi-format normalization and overlapping chunk generation with
+tenant, lineage, and citation metadata preserved.

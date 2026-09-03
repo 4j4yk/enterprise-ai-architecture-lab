@@ -6,6 +6,7 @@ from app.config import Settings
 from app.dependencies import check_dependencies
 from app.models import SearchRequest, SearchResponse
 from app.retrieval import INDEX_VERSION, RetrievalService
+from app.sample_content import sample_documents
 
 app = FastAPI(title="Enterprise AI Architecture Lab", version="0.1.0")
 
@@ -38,7 +39,7 @@ def readiness(response: Response) -> dict[str, object]:
 
 @app.post("/demo/seed")
 def seed_demo_catalog() -> dict[str, object]:
-    documents = catalog_documents()
+    documents = catalog_documents() + sample_documents()
     indexed = retrieval_service().index(documents)
     return {"indexed": indexed, "tenant_id": "demo-store", "index_version": INDEX_VERSION}
 

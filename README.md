@@ -14,6 +14,8 @@ before adding model APIs, agent workflows, or cloud infrastructure.
 
 - FastAPI health and readiness endpoints
 - A synthetic product catalog adapter
+- Markdown and HTML content adapters
+- Configurable word-based chunking with overlap
 - A shared document model with tenant and source metadata
 - Deterministic local embeddings for the initial baseline
 - Qdrant indexing and tenant-filtered vector search
@@ -46,6 +48,8 @@ FastAPI search endpoint
 The main files are:
 
 - `src/app/catalog.py` - converts product records into documents
+- `src/app/ingestion.py` - normalizes HTML/Markdown and splits documents into chunks
+- `src/app/sample_content.py` - provides synthetic help content for the demo
 - `src/app/models.py` - defines the API and document models
 - `src/app/embedding.py` - creates the local vectors
 - `src/app/retrieval.py` - indexes and searches Qdrant
@@ -68,7 +72,7 @@ The API starts at `http://localhost:8000`. Useful endpoints are:
 
 - `GET /health` - confirms the API process is running
 - `GET /ready` - checks PostgreSQL, Qdrant, and MLflow
-- `POST /demo/seed` - loads the three synthetic products into Qdrant
+- `POST /demo/seed` - loads synthetic products and help content into Qdrant
 - `POST /search` - searches documents for one tenant
 
 MLflow is available at `http://localhost:5050`. I use port 5050 because macOS may already use port
@@ -96,15 +100,14 @@ To run the current retrieval evaluation:
 make evaluate
 ```
 
-The evaluation currently contains three synthetic queries and scores Recall@1. That result only
+The evaluation currently contains five synthetic queries and scores Recall@1. That result only
 checks this small test dataset; it is not meant to represent production retrieval quality.
 
 ## Next steps
 
-The next milestone is to add public page and document ingestion, chunking experiments, a real
-embedding model, hybrid search, and a larger evaluation set. Later milestones cover LangGraph,
-human approval, gRPC, OpenTelemetry, MLflow evaluation, ML classification comparisons, and
-cloud deployment.
+The next milestone is to compare chunk sizes, add a real embedding model, hybrid search, and a larger
+evaluation set. Later milestones cover LangGraph, human approval, gRPC, OpenTelemetry, MLflow
+evaluation, ML classification comparisons, and cloud deployment.
 
 The detailed plan is in [docs/ROADMAP.md](docs/ROADMAP.md). Verified results are kept separately in
 [docs/EVIDENCE.md](docs/EVIDENCE.md), and architecture decisions are recorded in
